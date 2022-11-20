@@ -1,0 +1,13 @@
+server.port: 8100
+
+spring:
+  application.name: test
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8000/auth/realms/Injinity
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
