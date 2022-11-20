@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     id("org.springframework.boot") version "2.7.5"
@@ -47,4 +48,15 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.withType<BootBuildImage> {
+    imageName = "remote.injinity.org/injinity/cw-${project.name}"
+    isPublish = true
+    docker {
+        publishRegistry {
+            username = project.findProperty("registryUsername") as String?
+            password = project.findProperty("registryPassword") as String?
+        }
+    }
 }
