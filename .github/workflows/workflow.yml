@@ -16,6 +16,8 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - name: Build with Gradle
+#        uses: pguyot/arm-runner-action@v2
         run: ./gradlew build
       - name: Build the Docker image
+        uses: pguyot/arm-runner-action@v2
         run: ./gradlew bootBuildImage -PregistryUsername=${{ secrets.registryUsername }} -PregistryPassword=${{ secrets.registryPassword }}
