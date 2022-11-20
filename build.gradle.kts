@@ -51,6 +51,7 @@ tasks.withType<Test> {
 }
 
 tasks.withType<BootBuildImage> {
+    builder = "dashaun/java-native-builder-arm64:latest"
     imageName = "remote.injinity.org/injinity/${project.name}"
     isPublish = true
     docker {
