@@ -51,7 +51,7 @@ tasks.withType<Test> {
 }
 
 tasks.withType<BootBuildImage> {
-    imageName = "remote.injinity.org/injinity/cw-${project.name}"
+    imageName = "remote.injinity.org/injinity/${project.name}"
     isPublish = true
     docker {
         publishRegistry {
