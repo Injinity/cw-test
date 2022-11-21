@@ -70,9 +70,8 @@ jib {
     }
 }
 
-/*
 tasks.withType<BootBuildImage> {
-    builder = "dashaun/java-native-builder-arm64:latest"
+//    builder = "dashaun/java-native-builder-arm64:latest"
     imageName = "remote.injinity.org/injinity/${project.name}"
     isPublish = true
     docker {
@@ -81,4 +80,4 @@ tasks.withType<BootBuildImage> {
             password = project.findProperty("registryPassword") as String?
         }
     }
-}*/
+}

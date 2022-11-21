@@ -19,4 +19,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Build the Docker image
+        run: ./gradlew jibDockerBuild -PregistryUsername=${{ secrets.registryUsername }} -PregistryPassword=${{ secrets.registryPassword }}
+      - name: Build the Docker image
         run: ./gradlew bootBuildImage -PregistryUsername=${{ secrets.registryUsername }} -PregistryPassword=${{ secrets.registryPassword }}
