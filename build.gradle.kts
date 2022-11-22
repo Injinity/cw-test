@@ -62,7 +62,8 @@ jib {
         }
     }
     to {
-        image = "remote.injinity.org/injinity/${project.name}"
+        image = "remote.injinity.org/coin-well/${project.name.removePrefix("cw-")}"
+        tags = setOf("latest")
         auth {
             username = project.findProperty("registryUsername") as String?
             password = project.findProperty("registryPassword") as String?
@@ -71,8 +72,7 @@ jib {
 }
 
 tasks.withType<BootBuildImage> {
-//    builder = "dashaun/java-native-builder-arm64:latest"
-    imageName = "remote.injinity.org/injinity/${project.name}"
+    imageName = "remote.injinity.org/coin-well/${project.name.removePrefix("cw-")}"
     isPublish = true
     docker {
         publishRegistry {
