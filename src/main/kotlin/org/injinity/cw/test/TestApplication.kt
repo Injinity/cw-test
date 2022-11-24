@@ -10,7 +10,6 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @SpringBootApplication
-@EnableEurekaClient
 class TestApplication
 
 fun main(args: Array<String>) {

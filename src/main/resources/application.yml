@@ -7,7 +7,3 @@ spring:
       resource-server:
         jwt:
           issuer-uri: ${PROVIDER_INJINITY_ISSUER_URI:http://localhost:8100/realms/injinity}
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761}/eureka
