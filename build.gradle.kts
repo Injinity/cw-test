@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 //import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.springframework.boot") version "3.0.0"
-    id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.7.21"
-    kotlin("plugin.spring") version "1.7.21"
+    id("org.springframework.boot") version "2.7.6"
+    id("io.spring.dependency-management") version "1.0.15.RELEASE"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.spring") version "1.6.21"
     id("com.google.cloud.tools.jib") version "3.3.1"
 }
 
