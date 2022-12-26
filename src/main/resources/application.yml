@@ -3,4 +3,4 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE:default}
   config:
-    import: optional:configserver:${CONFIG_URL}/config
+    import: optional:configserver:${CONFIG_URL}
