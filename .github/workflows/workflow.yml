@@ -19,6 +19,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Build the Docker image
-        run: ./gradlew jib -PregistryUsername=${{ secrets.registryUsername }} -PregistryPassword=${{ secrets.registryPassword }}
+        run: ./gradlew jib -PregistryUsername=${{ secrets.registryUsername }} -PregistryPassword=${{ secrets.registryPassword }} -Penvironment=dev
 #      - name: Build the Docker image
 #        run: ./gradlew bootBuildImage -PregistryUsername=${{ secrets.registryUsername }} -PregistryPassword=${{ secrets.registryPassword }}

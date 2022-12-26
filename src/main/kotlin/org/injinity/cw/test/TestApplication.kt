@@ -38,5 +38,5 @@ class SecurityConfig {
 class TestController {
 
     @GetMapping
-    fun test(): String = "Resource Test String"
+    fun test(): String = "{\"test\":\"test resource string\"}"
 }

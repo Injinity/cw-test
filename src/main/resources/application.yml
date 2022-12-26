@@ -1,17 +1,6 @@
-server.port: 10000
-
 spring:
   application.name: test
-  security:
-    oauth2:
-      resource-server:
-        jwt:
-          issuer-uri: ${PROVIDER_INJINITY_ISSUER_URI:http://localhost:8100/realms/injinity}
-
-logging:
-  level:
-    root: debug
-    org.springframework.web: debug
-    org.springframework.security: debug
-
-
+  profiles:
+    active: ${ACTIVE_PROFILE:default}
+  config:
+    import: optional:configserver:${CONFIG_URL}/config

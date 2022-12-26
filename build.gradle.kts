@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-//import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+import java.time.Instant
 
 plugins {
     id("org.springframework.boot") version "2.7.6"
@@ -10,7 +11,7 @@ plugins {
 }
 
 group = "org.injinity.cw"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -26,8 +27,10 @@ dependencies {
 
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    implementation("org.springframework.cloud:spring-cloud-starter")
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
@@ -55,22 +58,45 @@ jib {
         }
     }
     to {
-        image = "remote.injinity.org/coin-well/${project.name.removePrefix("cw-")}"
-        tags = setOf("latest")
-        auth {
-            username = project.findProperty("registryUsername") as String?
-            password = project.findProperty("registryPassword") as String?
+        val projectName = project.name.removePrefix("cw-")
+        val environment = (project.findProperty("environment") as String?) ?: "local"
+        if (environment != "local" && environment != "dev" && environment != "stag" && environment != "prod")
+            throw IllegalArgumentException("Invalid environment: \"$environment\". List of environments: local, dev, stag, prod")
+
+        if (environment != "local") {
+            // example: test-0.0.1-dev
+            image = "remote.injinity.org/coin-well/$projectName"
+            tags = setOf("$version-$environment", "latest")
+            auth {
+                username = project.findProperty("registryUsername") as String?
+                password = project.findProperty("registryPassword") as String?
+            }
+        } else {
+            image = "coin-well/$projectName:latest"
         }
+    }
+    container {
+        creationTime.set(Instant.now().toString())
     }
 }
 
-/*tasks.withType<BootBuildImage> {
-    imageName = "remote.injinity.org/coin-well/${project.name.removePrefix("cw-")}"
-    isPublish = true
-    docker {
-        publishRegistry {
-            username = project.findProperty("registryUsername") as String?
-            password = project.findProperty("registryPassword") as String?
+tasks.withType<BootBuildImage> {
+    val projectName = project.name.removePrefix("cw-")
+    val environment = (project.findProperty("environment") as String?) ?: "local"
+    if (environment != "local" && environment != "dev" && environment != "stag" && environment != "prod")
+        throw IllegalArgumentException("Invalid environment: \"$environment\". List of environments: local, dev, stag, prod")
+
+    if (environment != "local") {
+        isPublish = true
+        imageName = "remote.injinity.org/coin-well/$projectName:$version-$environment"
+        docker {
+            publishRegistry {
+                username = project.findProperty("registryUsername") as String?
+                password = project.findProperty("registryPassword") as String?
+            }
         }
+    } else {
+        isPublish = false
+        imageName = "coin-well/$projectName:latest"
     }
-}*/
+}
