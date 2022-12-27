@@ -1,6 +1,8 @@
+server.port: 10000
+
 spring:
   application.name: test
   profiles:
     active: ${ACTIVE_PROFILE:default}
   config:
-    import: optional:configserver:${CONFIG_URL}
+    import: optional:configserver:${CONFIG_URL:http://localhost:8888/config}
