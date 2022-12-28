@@ -6,3 +6,10 @@ spring:
     active: ${ACTIVE_PROFILE:default}
   config:
     import: optional:configserver:${CONFIG_URL:http://localhost:8888/config}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
