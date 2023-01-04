@@ -36,7 +36,8 @@ dependencies {
 //    observability
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-
+//    runtimeOnly("io.github.resilience4j:resilience4j-micrometer")
+    runtimeOnly("io.opentelemetry.javaagent:opentelemetry-javaagent:1.21.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
